@@ -1,0 +1,29 @@
+{
+  "name": "usftemplate",
+  "type": "project",
+  "autoload": {
+    "psr-0": {
+      "Api": "src/",
+      "Test": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [
+    { 
+        "type":"vcs",
+        "url":"https://github.com/jackled/usf-idm-database.git"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "slim/slim": "2.5.*",
+    "usf-it/usf-auth": "dev-develop",
+    "usf-it/usf-idm-common": "dev-master",
+    "usf-it/usf-idm-database": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.1.*",
+    "squizlabs/php_codesniffer": "2.1.*"
+  }
+}

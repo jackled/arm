@@ -1,0 +1,105 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.) styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+    </head>
+    <body ng-app="usfTemplateApp">
+        <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your application navigation and content here -->
+        <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#/">usf-angularjs-php</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a ng-href="#/get">Get</a></li>
+                            <li ng-show="isTokenAuth()"><a ng-href="#/put">Put</a></li>
+                            <li ng-show="isTokenAuth()"><a ng-href="#/post">Post</a></li>
+                            <li ng-show="isTokenAuth()"><a ng-href="#/delete">Delete</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li ng-show="isTokenAuth()">
+                                <div class="check-element animate-hide navbar-text">{{name}} ({{role}})</div>
+                            </li>
+                            <li ng-show="isTokenAuth()">
+                                <button class="navbar-btn btn-primary btn-sm" ng-click="tokenAuthLogout()">Logout <span class="glyphicon glyphicon-log-out"></span></button>
+                            </li>
+                            <li ng-show="!isTokenAuth()">
+                                <button class="navbar-btn btn-primary btn-sm" ng-click="tokenAuthLogin()">Login <span class="glyphicon glyphicon-log-in"></span></button>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+
+            <div ng-view=""></div>
+
+            <div class="footer">
+                <p><span class="glyphicon glyphicon-heart"></span> from the USF IT team</p>
+            </div>
+        </div>
+
+        <!--[if lt IE 9]>
+        <script src="bower_components/es5-shim/es5-shim.js"></script>
+        <script src="bower_components/json3/lib/json3.min.js"></script>
+        <![endif]-->
+
+        <!-- build:js(.) scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angularLocalStorage/src/angularLocalStorage.js"></script>
+        <script src="bower_components/json3/lib/json3.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/usfcastokenauth/usfcastokenauth.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/get.js"></script>
+        <script src="scripts/controllers/put.js"></script>
+        <script src="scripts/controllers/post.js"></script>
+        <script src="scripts/controllers/delete.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/logout.js"></script>
+        <script src="scripts/services/delete.js"></script>
+        <script src="scripts/services/get.js"></script>
+        <script src="scripts/services/put.js"></script>
+        <script src="scripts/services/post.js"></script>
+        <!-- endbuild -->
+
+        <script src="config.js"></script>
+    </body>
+</html>

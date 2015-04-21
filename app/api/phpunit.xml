@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
+    <php>
+        <server name='REQUEST_METHOD' value='GET' />
+        <server name='REMOTE_ADDR' value='127.0.0.1' />
+        <server name='REQUEST_URI' value='localhost' />
+        <server name='SERVER_NAME' value='local' />
+        <server name='SERVER_PORT' value='8080' />
+    </php>
+    <testsuites>
+        <testsuite name="usftemplate">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">config</directory>
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

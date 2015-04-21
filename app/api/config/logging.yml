@@ -1,0 +1,14 @@
+# SlimLogMiddleware configuration
+logConfig:
+- name: log # Create a file-based log handler for general logs
+  type: file
+  default: true
+  config:
+    log_location: /tmp/application.log
+    log_level: info
+- name: audit # Create a file-based log handler for audit logs
+  type: file
+  default: false
+  config:
+    log_location: /tmp/audit.log
+    log_level: info
