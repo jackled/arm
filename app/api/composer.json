@@ -22,6 +22,7 @@
   "require": {
     "php": ">=5.4",
     "slim/slim": "2.5.*",
+    "shkm/jsend": ">1.2.0",
     "usf-it/usf-auth": "dev-develop",
     "usf-it/usf-idm-common": "dev-master",
     "usf-it/usf-idm-database": "dev-master",
