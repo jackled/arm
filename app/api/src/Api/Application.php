@@ -5,9 +5,11 @@ namespace Api;
 use Api\Model\Features;
 use \Slim\Slim;
 use \Exception;
+use \JSend\JSendResponse;
 use \USF\IdM\UsfConfig;
 use \USF\auth\SlimAuthMiddleware;
 use \USF\IdM\SlimLogMiddleware;
+use \USF\IdM\UsfARMapi;
 use \USF\IdM\UsfVipDatabase;
 
 // TODO Move all "features" things to a class with index() and get() methods
@@ -130,6 +132,88 @@ class Application extends Slim {
             $this->response->headers->set('Content-Type', 'application/json');
             $this->response->setBody(json_encode($feature));
         });
+        
+        // UsfARMapi methods
+        /**
+         * Retrieves an array of accounts for a specified identity object
+         */
+        $this->get('/accounts/identity/:identity', function ($identity) {
+            $usfARMapi = new UsfARMapi();
+            $accounts = $usfARMapi.getAccountsForIdentity($identity);
+            $success = new JSendResponse('success', [ "accounts" => $accounts ]);
+            $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
+            $this->response->headers->set('Content-Type', 'application/json');
+            $this->response->setBody($success->encode());
+        });
+        /**
+         * Retrieves an array of roles for a specified account object
+         */
+        $this->get('/roles/account/:account', function ($account) {
+            $usfARMapi = new UsfARMapi();
+            $rolls = $usfARMapi.getRolesForAccount($account);
+            $success = new JSendResponse('success', [ "rolls" => $rolls ]);
+            $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
+            $this->response->headers->set('Content-Type', 'application/json');
+            $this->response->setBody($success->encode());
+        });
+        /**
+         * Retrieves an array of roles for a specified identity object
+         */
+        $this->get('/roles/identity/:identity', function ($identity) {
+            $usfARMapi = new UsfARMapi();
+            $rolls = $usfARMapi.getRolesForIdentity($identity);
+            $success = new JSendResponse('success', [ "rolls" => $rolls ]);
+            $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
+            $this->response->headers->set('Content-Type', 'application/json');
+            $this->response->setBody($success->encode());
+        });
+        /**
+         * Retrieves an identity associated with a specified account object
+         */
+        $this->get('/identities/account/:account', function ($account) {
+            $usfARMapi = new UsfARMapi();
+            $identity = $usfARMapi.getIdentityForAccount($account);
+            $success = new JSendResponse('success', [ "identity" => $identity ]);
+            $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
+            $this->response->headers->set('Content-Type', 'application/json');
+            $this->response->setBody($success->encode());
+        });
+        /**
+         * Retrieves an array of identities associated with a specified role object
+         */
+        $this->get('/identities/role/:role', function ($role) {
+            $usfARMapi = new UsfARMapi();
+            $identities = $usfARMapi.getIdentitiesForRole($role);
+            $success = new JSendResponse('success', [ "identities" => $identities ]);
+            $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
+            $this->response->headers->set('Content-Type', 'application/json');
+            $this->response->setBody($success->encode());
+        });
+        /**
+         * Assigns a specified account object with an existing identity
+         */
+        $this->post('/accounts/identity/:identity', function ($identity) {
+            $usfARMapi = new UsfARMapi();
+            $account = $this->request()->post('account');
+            $status = $usfARMapi.setAccountForIdentity($identity,$account);
+            $success = new JSendResponse('success', [ "status" => $status ]);
+            $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
+            $this->response->headers->set('Content-Type', 'application/json');
+            $this->response->setBody($success->encode());
+        });
+        /**
+         * Assigns a specified role object with an existing account
+         */
+        $this->post('/rolls/account/:account', function ($account) {
+            $usfARMapi = new UsfARMapi();
+            $role = $this->request()->post('roll');
+            $status = $usfARMapi.setRoleForAccount($account,$role);
+            $success = new JSendResponse('success', [ "status" => $status ]);
+            $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
+            $this->response->headers->set('Content-Type', 'application/json');
+            $this->response->setBody($success->encode());
+        });
+        
     }
 
     public function handleNotFound() {
