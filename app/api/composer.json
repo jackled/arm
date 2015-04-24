@@ -1,34 +1,51 @@
 {
-  "name": "usftemplate",
-  "type": "project",
-  "autoload": {
-    "psr-0": {
-      "Api": "src/",
-      "Test": "tests/"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "repositories": [
-    { 
-        "type":"vcs",
-        "url":"https://github.com/USF-IT/usf-idm-database.git"
+    "name": "usftemplate",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Eric Pierce",
+            "email": "epierce@usf.edu",
+            "role": "Developer"
+        },
+        {
+            "name": "James Jones",
+            "email": "james@usf.edu",
+            "role": "Developer"
+        },
+        {
+            "name": "Jack Drobisz",
+            "email": "jack@usf.edu",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Api": "src/",
+            "Test": "tests/"
+        }
     },
-    {
-        "type": "vcs",
-        "url": "https://github.com/jamjon3/armapi.git"
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        { 
+            "type":"vcs",
+            "url":"https://github.com/USF-IT/usf-idm-database.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/jamjon3/armapi.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "slim/slim": "2.5.*",
+        "usf-it/usf-auth": "dev-develop",
+        "usf-it/usf-idm-common": "dev-master",
+        "usf-it/usf-idm-database": "dev-master",
+        "usf-it/armapi": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.*",
+        "squizlabs/php_codesniffer": "2.1.*"
     }
-  ],
-  "require": {
-    "php": ">=5.4",
-    "slim/slim": "2.5.*",
-    "usf-it/usf-auth": "dev-develop",
-    "usf-it/usf-idm-common": "dev-master",
-    "usf-it/usf-idm-database": "dev-master",
-    "usf-it/armapi": "dev-master"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "4.1.*",
-    "squizlabs/php_codesniffer": "2.1.*"
-  }
 }
