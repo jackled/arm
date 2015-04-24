@@ -5,7 +5,6 @@ namespace Api;
 use Api\Model\Features;
 use \Slim\Slim;
 use \Exception;
-use \JSend\JSendResponse;
 use \USF\IdM\UsfConfig;
 use \USF\auth\SlimAuthMiddleware;
 use \USF\IdM\SlimLogMiddleware;
@@ -139,55 +138,45 @@ class Application extends Slim {
          */
         $this->get('/accounts/identity/:identity', function ($identity) {
             $usfARMapi = new UsfARMapi();
-            $accounts = $usfARMapi.getAccountsForIdentity($identity);
-            $success = new JSendResponse('success', [ "accounts" => $accounts ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
-            $this->response->setBody($success->encode());
+            $this->response->setBody($usfARMapi.getAccountsForIdentity($identity)->encode());
         });
         /**
          * Retrieves an array of roles for a specified account object
          */
         $this->get('/roles/account/:account', function ($account) {
             $usfARMapi = new UsfARMapi();
-            $roles = $usfARMapi.getRolesForAccount($account);
-            $success = new JSendResponse('success', [ "roles" => $roles ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
-            $this->response->setBody($success->encode());
+            $this->response->setBody($usfARMapi.getRolesForAccount($account)->encode());
         });
         /**
          * Retrieves an array of roles for a specified identity object
          */
         $this->get('/roles/identity/:identity', function ($identity) {
             $usfARMapi = new UsfARMapi();
-            $roles = $usfARMapi.getRolesForIdentity($identity);
-            $success = new JSendResponse('success', [ "roles" => $roles ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
-            $this->response->setBody($success->encode());
+            $this->response->setBody($usfARMapi.getRolesForIdentity($identity)->encode());
         });
         /**
          * Retrieves an identity associated with a specified account object
          */
         $this->get('/accounts/:account', function ($account) {
             $usfARMapi = new UsfARMapi();
-            $identity = $usfARMapi.getIdentityForAccount($account);
-            $success = new JSendResponse('success', [ "identity" => $identity ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
-            $this->response->setBody($success->encode());
+            $this->response->setBody($usfARMapi.getIdentityForAccount($account)->encode());
         });
         /**
          * Retrieves an array of identities associated with a specified role object
          */
         $this->get('/roles/:role', function ($role) {
             $usfARMapi = new UsfARMapi();
-            $identities = $usfARMapi.getIdentitiesForRole($role);
-            $success = new JSendResponse('success', [ "identities" => $identities ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
-            $this->response->setBody($success->encode());
+            $this->response->setBody($usfARMapi.getIdentitiesForRole($role)->encode());
         });
         /**
          * Assigns a specified account object with an existing identity
@@ -195,11 +184,9 @@ class Application extends Slim {
         $this->post('/accounts/identity/:identity', function ($identity) {
             $usfARMapi = new UsfARMapi();
             $account = $this->request()->post('account');
-            $status = $usfARMapi.setAccountForIdentity($identity,$account);
-            $success = new JSendResponse('success', [ "status" => $status ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
-            $this->response->setBody($success->encode());
+            $this->response->setBody($usfARMapi.setAccountForIdentity($identity,$account)->encode());
         });
         /**
          * Assigns a specified role object with an existing account
@@ -207,11 +194,9 @@ class Application extends Slim {
         $this->post('/roles/account/:account', function ($account) {
             $usfARMapi = new UsfARMapi();
             $role = $this->request()->post('role');
-            $status = $usfARMapi.setRoleForAccount($account,$role);
-            $success = new JSendResponse('success', [ "status" => $status ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
-            $this->response->setBody($success->encode());
+            $this->response->setBody($usfARMapi.setRoleForAccount($account,$role)->encode());
         });
         
     }
