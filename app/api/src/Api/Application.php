@@ -150,8 +150,8 @@ class Application extends Slim {
          */
         $this->get('/roles/account/:account', function ($account) {
             $usfARMapi = new UsfARMapi();
-            $rolls = $usfARMapi.getRolesForAccount($account);
-            $success = new JSendResponse('success', [ "rolls" => $rolls ]);
+            $roles = $usfARMapi.getRolesForAccount($account);
+            $success = new JSendResponse('success', [ "roles" => $roles ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
             $this->response->setBody($success->encode());
@@ -161,8 +161,8 @@ class Application extends Slim {
          */
         $this->get('/roles/identity/:identity', function ($identity) {
             $usfARMapi = new UsfARMapi();
-            $rolls = $usfARMapi.getRolesForIdentity($identity);
-            $success = new JSendResponse('success', [ "rolls" => $rolls ]);
+            $roles = $usfARMapi.getRolesForIdentity($identity);
+            $success = new JSendResponse('success', [ "roles" => $roles ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
             $this->response->headers->set('Content-Type', 'application/json');
             $this->response->setBody($success->encode());
@@ -170,7 +170,7 @@ class Application extends Slim {
         /**
          * Retrieves an identity associated with a specified account object
          */
-        $this->get('/identities/account/:account', function ($account) {
+        $this->get('/accounts/:account', function ($account) {
             $usfARMapi = new UsfARMapi();
             $identity = $usfARMapi.getIdentityForAccount($account);
             $success = new JSendResponse('success', [ "identity" => $identity ]);
@@ -181,7 +181,7 @@ class Application extends Slim {
         /**
          * Retrieves an array of identities associated with a specified role object
          */
-        $this->get('/identities/role/:role', function ($role) {
+        $this->get('/roles/:role', function ($role) {
             $usfARMapi = new UsfARMapi();
             $identities = $usfARMapi.getIdentitiesForRole($role);
             $success = new JSendResponse('success', [ "identities" => $identities ]);
@@ -204,9 +204,9 @@ class Application extends Slim {
         /**
          * Assigns a specified role object with an existing account
          */
-        $this->post('/rolls/account/:account', function ($account) {
+        $this->post('/roles/account/:account', function ($account) {
             $usfARMapi = new UsfARMapi();
-            $role = $this->request()->post('roll');
+            $role = $this->request()->post('role');
             $status = $usfARMapi.setRoleForAccount($account,$role);
             $success = new JSendResponse('success', [ "status" => $status ]);
             $this->response->headers->set('X-Api-Version', $usfARMapi.getVersion());
